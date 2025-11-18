@@ -72,11 +72,7 @@ function App() {
           >
             <Box>
               <Typography variant="h4" sx={{ fontWeight: 600 }}>
-                NASA CWBS Explorer
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Rapid Material UI visualizations for the 7-level Contract Work Breakdown Structure.
-                Load the CSV reference data once and explore KPIs, distributions, and drilldowns.
+                Mock up examples
               </Typography>
             </Box>
           <Stack direction="row" spacing={1} flexWrap="wrap">
@@ -97,7 +93,7 @@ function App() {
 
           {error ? <Alert severity="warning">{error}</Alert> : null}
 
-          <Grid container spacing={3}>
+          <Grid container spacing={3} alignItems="stretch">
             <Grid size={{ xs: 12 }}>
               <Card>
                 <CardHeader
@@ -109,10 +105,10 @@ function App() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex' }}>
               <LevelBarChart dataset={barDataset} />
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex' }}>
               <FundingDonutCharts
                 sources={donutSeries.sources}
                 subSources={donutSeries.subSources}

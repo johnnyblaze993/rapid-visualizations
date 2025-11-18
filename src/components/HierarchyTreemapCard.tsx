@@ -4,16 +4,16 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Grid,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Stack,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
 } from '@mui/material'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { ResponsiveContainer, Treemap, Tooltip } from 'recharts'
 import type { TreemapNode } from 'recharts/types/chart/Treemap'
 import type {
@@ -93,72 +93,6 @@ export const HierarchyTreemapCard = ({
     if (value) setMode(value as 'treemap' | 'icicle')
   }
 
-  const layout = useMemo(
-    () => (
-      <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        spacing={2}
-        alignItems="stretch"
-      >
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          {mode === 'treemap' ? (
-            <ResponsiveContainer width="100%" height={height}>
-              <Treemap
-                data={treeData}
-                dataKey="value"
-                nameKey="name"
-                content={renderTreemapNode}
-                animationDuration={600}
-                fill="#1976d2"
-              >
-                <Tooltip content={<TreemapTooltip />} />
-              </Treemap>
-            </ResponsiveContainer>
-          ) : (
-            <IcicleChart segments={icicleSegments} height={height} />
-          )}
-        </Box>
-        <Box
-          sx={{
-            width: { xs: '100%', md: 260 },
-            maxHeight: height,
-            overflowY: 'auto',
-            border: 1,
-            borderColor: 'divider',
-            borderRadius: 2,
-            p: 1,
-          }}
-        >
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>
-            Top Centers
-          </Typography>
-          <List dense disablePadding>
-            {legend.map((entry) => (
-              <ListItem key={entry.label}>
-                <ListItemAvatar>
-                  <Avatar
-                    sx={{
-                      bgcolor: entry.color,
-                      width: 28,
-                      height: 28,
-                    }}
-                  >
-                    &nbsp;
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={entry.label}
-                  secondary={`${entry.value.toLocaleString()} defs`}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Stack>
-    ),
-    [height, icicleSegments, legend, mode, treeData],
-  )
-
   return (
     <Card>
       <CardHeader
@@ -176,7 +110,67 @@ export const HierarchyTreemapCard = ({
           </ToggleButtonGroup>
         }
       />
-      <CardContent>{layout}</CardContent>
+      <CardContent>
+        <Grid container spacing={2} alignItems="stretch">
+          <Grid size={{ xs: 12, md: 9 }}>
+            <Box sx={{ height }}>
+              {mode === 'treemap' ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <Treemap
+                    data={treeData}
+                    dataKey="value"
+                    nameKey="name"
+                    content={renderTreemapNode}
+                    animationDuration={600}
+                    fill="#1976d2"
+                  >
+                    <Tooltip content={<TreemapTooltip />} />
+                  </Treemap>
+                </ResponsiveContainer>
+              ) : (
+                <IcicleChart segments={icicleSegments} height={height} />
+              )}
+            </Box>
+          </Grid>
+          <Grid size={{ xs: 12, md: 3 }}>
+            <Box
+              sx={{
+                height,
+                overflowY: 'auto',
+                border: 1,
+                borderColor: 'divider',
+                borderRadius: 2,
+                p: 1,
+              }}
+            >
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                Top Centers
+              </Typography>
+              <List dense disablePadding>
+                {legend.map((entry) => (
+                  <ListItem key={entry.label}>
+                    <ListItemAvatar>
+                      <Avatar
+                        sx={{
+                          bgcolor: entry.color,
+                          width: 28,
+                          height: 28,
+                        }}
+                      >
+                        &nbsp;
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={entry.label}
+                      secondary={`${entry.value.toLocaleString()} defs`}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </Grid>
+        </Grid>
+      </CardContent>
     </Card>
   )
 }

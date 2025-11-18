@@ -1,8 +1,8 @@
 import {
+  Box,
   Card,
   CardContent,
   CardHeader,
-  Grid,
   Typography,
 } from '@mui/material'
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts'
@@ -31,29 +31,54 @@ const renderLabel = (props: PieLabelRenderProps) => {
     innerRadius = 0,
     outerRadius = 0,
     percent,
-    name,
     value,
     midAngle = 0,
   } = props
-  if (!percent || percent < MIN_PERCENT) return null
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
-  const x = cx + radius * Math.cos(-midAngle * RADIAN)
-  const y = cy + radius * Math.sin(-midAngle * RADIAN)
-  const percentageText = `${(percent * 100).toFixed(1)}%`
+  if (!cx || !cy || outerRadius === undefined) return null
+  const safePercent = percent ?? 0
+  const percentageText = `${(safePercent * 100).toFixed(1)}%`
   const numericValue =
     typeof value === 'number' ? value : Number.parseFloat(String(value ?? 0))
+  const isSmallSlice = safePercent < MIN_PERCENT
+  const insideRadius = innerRadius + (outerRadius - innerRadius) * 0.5
+  const angleInRad = -midAngle * RADIAN
+  const targetRadius = isSmallSlice ? outerRadius + 20 : insideRadius
+  const x = cx + targetRadius * Math.cos(angleInRad)
+  const y = cy + targetRadius * Math.sin(angleInRad)
   return (
-    <text
-      x={x}
-      y={y}
-      fill="#fff"
-      textAnchor="middle"
-      dominantBaseline="middle"
-      fontSize={12}
-      fontWeight={600}
-    >
-      {`${String(name ?? '')}: ${numericValue} (${percentageText})`}
-    </text>
+    <>
+      {isSmallSlice ? (
+        <polyline
+          points={`${cx + innerRadius * Math.cos(angleInRad)},${cy + innerRadius * Math.sin(angleInRad)} ${cx + (outerRadius + 6) * Math.cos(angleInRad)},${cy + (outerRadius + 6) * Math.sin(angleInRad)} ${x},${y}`}
+          stroke="#ccc"
+          strokeWidth={1}
+          fill="none"
+          strokeLinecap="round"
+        />
+      ) : null}
+      <text
+        x={x}
+        y={y}
+        fill={isSmallSlice ? '#111' : '#fff'}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontSize={12}
+        fontWeight={600}
+      >
+        {numericValue}
+      </text>
+      {isSmallSlice ? (
+        <text
+          x={x}
+          y={y + 14}
+          fill="#555"
+          textAnchor="middle"
+          fontSize={10}
+        >
+          {percentageText}
+        </text>
+      ) : null}
+    </>
   )
 }
 
@@ -69,32 +94,50 @@ export const FundingDonutCharts = ({
   }
 
   return (
-    <Card>
+    <Card
+      sx={{
+        height: '100%',
+        minHeight: 420,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <CardHeader
         title="Funding Distribution"
         subheader="Donut charts show code definitions by Funding Source, Sub-Source, and Activity."
       />
-      <CardContent>
-        <Grid container spacing={2}>
-          {CHARTS.map((chart) => (
-            <Grid size={{ xs: 12, md: 4 }} key={chart.key}>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                {chart.title}
-              </Typography>
-              <ResponsiveContainer width="100%" height={260}>
+      <CardContent
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: 2,
+        }}
+      >
+        {CHARTS.map((chart) => (
+          <Box
+            key={chart.key}
+            sx={{
+              flex: 1,
+              minHeight: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              gap: 1,
+            }}
+          >
+            <Typography variant="subtitle1">{chart.title}</Typography>
+            <Box sx={{ flexGrow: 1, minHeight: 0 }}>
+              <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Tooltip
-                    formatter={(value: number, _, payload) =>
-                      [`${value}`, payload?.name]
-                    }
-                  />
                   <Pie
                     data={datasets[chart.key]}
                     dataKey="value"
                     nameKey="label"
-                    innerRadius="55%"
-                    outerRadius="80%"
-                    paddingAngle={2}
+                    innerRadius="50%"
+                    outerRadius="75%"
+                    paddingAngle={1}
                     labelLine={false}
                     label={renderLabel}
                   >
@@ -102,11 +145,17 @@ export const FundingDonutCharts = ({
                       <Cell key={entry.id} fill={entry.color} />
                     ))}
                   </Pie>
+                  <Tooltip
+                    formatter={(value: number, _, payload) => [
+                      `${value}`,
+                      payload?.payload?.label ?? payload?.name,
+                    ]}
+                  />
                 </PieChart>
               </ResponsiveContainer>
-            </Grid>
-          ))}
-        </Grid>
+            </Box>
+          </Box>
+        ))}
       </CardContent>
     </Card>
   )

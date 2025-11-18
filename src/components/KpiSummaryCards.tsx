@@ -1,4 +1,4 @@
-import { Card, CardContent, Chip, Grid, Typography } from '@mui/material'
+import { Box, Chip, Paper, Typography } from '@mui/material'
 import type { LevelStat } from '../utils/cwbs'
 import { PSID_LEVELS, FUNDING_LEVELS } from '../types/cwbs'
 
@@ -14,27 +14,44 @@ const formatBlockLabel = (level: string) =>
       : 'CWBS'
 
 export const KpiSummaryCards = ({ stats }: Props) => (
-  <Grid container spacing={2}>
+  <Box
+    sx={{
+      display: 'grid',
+      gridAutoFlow: 'column',
+      gridAutoColumns: 'minmax(140px, 1fr)',
+      gap: 2,
+      overflowX: 'auto',
+      scrollbarWidth: 'thin',
+      pb: 1,
+    }}
+  >
     {stats.map((stat) => (
-      <Grid key={stat.description} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <Card variant="outlined">
-          <CardContent>
-            <Chip
-              label={`${formatBlockLabel(stat.description)} Level`}
-              size="small"
-              sx={{ mb: 1 }}
-            />
-            <Typography variant="h6">{stat.description}</Typography>
-            <Typography variant="h3" component="p" sx={{ my: 1, fontWeight: 600 }}>
-              {stat.count}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {stat.format} • {stat.codeFormat.toUpperCase()} • {stat.characters}{' '}
-              chars
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+      <Paper
+        key={stat.description}
+        variant="outlined"
+        sx={{
+          p: 1.5,
+          minWidth: 140,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0.5,
+        }}
+      >
+        <Chip
+          label={`${formatBlockLabel(stat.description)} Level`}
+          size="small"
+          sx={{ width: 'fit-content' }}
+        />
+        <Typography variant="subtitle2" color="text.secondary">
+          {stat.description}
+        </Typography>
+        <Typography variant="h4" component="p" sx={{ fontWeight: 600, lineHeight: 1 }}>
+          {stat.count}
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          {stat.format} • {stat.codeFormat.toUpperCase()} • {stat.characters} chars
+        </Typography>
+      </Paper>
     ))}
-  </Grid>
+  </Box>
 )
