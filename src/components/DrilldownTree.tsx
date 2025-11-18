@@ -1,5 +1,8 @@
 import {
   Box,
+  Card,
+  CardContent,
+  CardHeader,
   Chip,
   Grid,
   List,
@@ -40,65 +43,80 @@ export const DrilldownTree = ({ groups }: Props) => {
   }, [selection])
 
   return (
-    <Stack spacing={2}>
-      <Typography variant="h6">Drilldown Explorer</Typography>
-      <Grid container spacing={2}>
-        {LEVEL_ORDER.map((level) => (
-          <Grid
-            key={level}
-            size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-            sx={{ display: 'flex' }}
-          >
-            <Paper
-              variant="outlined"
-              sx={{
-                flex: 1,
-                p: 1.5,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 1,
-                minHeight: 320,
-              }}
-            >
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-                  {level}
-                </Typography>
-                <Chip
-                  label={PSID_LEVELS.includes(level as LevelDescription) ? 'PSID' : 'Funding'}
-                  size="small"
-                  color={PSID_LEVELS.includes(level as LevelDescription) ? 'primary' : 'secondary'}
+    <Card>
+      <CardHeader
+        title="Drilldown Explorer"
+        subheader="Select one code per level to mirror the full CWBS path."
+      />
+      <CardContent>
+        <Stack spacing={2}>
+          <Grid container spacing={2}>
+            {LEVEL_ORDER.map((level) => (
+              <Grid
+                key={level}
+                size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+                sx={{ display: 'flex' }}
+              >
+                <Paper
                   variant="outlined"
-                />
-              </Stack>
-              <Box sx={{ flex: 1, overflowY: 'auto' }}>
-                <List dense disablePadding>
-                  {groups[level as LevelDescription]?.map((row) => (
-                    <ListItemButton
-                      key={row.code}
-                      onClick={() => handleSelect(level as LevelDescription, row)}
-                      selected={selection[level as LevelDescription]?.code === row.code}
-                    >
-                      <ListItemText
-                        primary={`${row.code} ${row.codeName ?? ''}`.trim()}
-                        secondary={`${row.codeFormat.toUpperCase()} • ${row.characters} chars`}
-                      />
-                    </ListItemButton>
-                  ))}
-                </List>
-              </Box>
-            </Paper>
+                  sx={{
+                    flex: 1,
+                    p: 1.5,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 1,
+                    minHeight: 320,
+                  }}
+                >
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
+                      {level}
+                    </Typography>
+                    <Chip
+                      label={
+                        PSID_LEVELS.includes(level as LevelDescription)
+                          ? 'PSID'
+                          : 'Funding'
+                      }
+                      size="small"
+                      color={
+                        PSID_LEVELS.includes(level as LevelDescription)
+                          ? 'primary'
+                          : 'secondary'
+                      }
+                      variant="outlined"
+                    />
+                  </Stack>
+                  <Box sx={{ flex: 1, overflowY: 'auto' }}>
+                    <List dense disablePadding>
+                      {groups[level as LevelDescription]?.map((row) => (
+                        <ListItemButton
+                          key={row.code}
+                          onClick={() => handleSelect(level as LevelDescription, row)}
+                          selected={selection[level as LevelDescription]?.code === row.code}
+                        >
+                          <ListItemText
+                            primary={`${row.code} ${row.codeName ?? ''}`.trim()}
+                            secondary={`${row.codeFormat.toUpperCase()} • ${row.characters} chars`}
+                          />
+                        </ListItemButton>
+                      ))}
+                    </List>
+                  </Box>
+                </Paper>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-      <Paper sx={{ p: 2 }}>
-        <Typography variant="subtitle2" color="text.secondary">
-          Selected CWBS Path
-        </Typography>
-        <Typography variant="h6" sx={{ mt: 0.5 }}>
-          {codeString}
-        </Typography>
-      </Paper>
-    </Stack>
+          <Paper sx={{ p: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              Selected CWBS Path
+            </Typography>
+            <Typography variant="h6" sx={{ mt: 0.5 }}>
+              {codeString}
+            </Typography>
+          </Paper>
+        </Stack>
+      </CardContent>
+    </Card>
   )
 }

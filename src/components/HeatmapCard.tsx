@@ -1,8 +1,9 @@
 import {
   Box,
-  Paper,
+  Card,
+  CardContent,
+  CardHeader,
   Tooltip,
-  Typography,
   useTheme,
 } from '@mui/material'
 import type { HeatmapCell } from '../utils/cwbs'
@@ -23,8 +24,8 @@ export const HeatmapCard = ({
   cells,
 }: Props) => {
   const theme = useTheme()
-  const min = Math.min(...cells.map((cell) => cell.value))
-  const max = Math.max(...cells.map((cell) => cell.value))
+  const min = cells.length ? Math.min(...cells.map((cell) => cell.value)) : 0
+  const max = cells.length ? Math.max(...cells.map((cell) => cell.value)) : 0
   const range = Math.max(max - min, 1)
   const cellMap = new Map(
     cells.map((cell) => [`${cell.rowId}-${cell.columnId}`, cell]),
@@ -38,13 +39,9 @@ export const HeatmapCard = ({
   }
 
   return (
-    <Paper sx={{ p: 2 }}>
-      <Typography variant="h6">{title}</Typography>
-      {subtitle ? (
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          {subtitle}
-        </Typography>
-      ) : null}
+    <Card>
+      <CardHeader title={title} subheader={subtitle} />
+      <CardContent>
       <Box sx={{ overflowX: 'auto' }}>
         <Box
           sx={{
@@ -120,6 +117,7 @@ export const HeatmapCard = ({
           ))}
         </Box>
       </Box>
-    </Paper>
+      </CardContent>
+    </Card>
   )
 }

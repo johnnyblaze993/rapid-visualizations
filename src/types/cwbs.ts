@@ -36,4 +36,43 @@ export interface NamedValue {
   id: string
   label: string
   value: number
+  [key: string]: string | number
+}
+
+export interface ColoredValue extends NamedValue {
+  color: string
+}
+
+export interface HierarchyNode {
+  key: string
+  name: string
+  level: LevelDescription
+  value: number
+  color: string
+  children: HierarchyNode[]
+  [key: string]: unknown
+}
+
+export interface ChartLegendEntry {
+  label: string
+  value: number
+  color: string
+}
+
+export interface IcicleSegment {
+  key: string
+  name: string
+  color: string
+  depth: number
+  value: number
+  level: LevelDescription
+  x0: number
+  x1: number
+}
+
+export interface SunburstSeries {
+  center: ColoredValue[]
+  orgs: ColoredValue[]
+  skills: ColoredValue[]
+  fundingSources: ColoredValue[]
 }

@@ -1,18 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
 import cwbsCsvUrl from '../assets/cwbs_levels.csv?url'
-import type { PieSeriesType } from '@mui/x-charts/models'
 import type {
   CwbsRow,
   LevelDescription,
   LevelGroupMap,
   NamedValue,
 } from '../types/cwbs'
-import { LEVEL_ORDER, PSID_LEVELS, FUNDING_LEVELS } from '../types/cwbs'
+import { PSID_LEVELS, FUNDING_LEVELS } from '../types/cwbs'
 import {
   buildHeatmap,
   buildLevelStats,
   createLevelGroups,
   parseCwbsCsv,
+  buildHierarchySummaries,
+  buildDonutSeries,
 } from '../utils/cwbs'
 
 export const useCwbsData = () => {
@@ -67,26 +68,16 @@ export const useCwbsData = () => {
     }
   }, [groups])
 
-  const hierarchySeries = useMemo<PieSeriesType[]>(() => {
-    const ringThickness = 26
-    return LEVEL_ORDER.map((description, index) => {
-      const entries = groups[description] ?? []
-      return {
-        type: 'pie',
-        id: description,
-        data: entries.map((entry) => ({
-          id: `${description}-${entry.code}`,
-          value: Math.max(entry.codeName?.length ?? 1, 1),
-          label: entry.codeName
-            ? `${entry.code} • ${entry.codeName}`
-            : entry.code,
-        })),
-        innerRadius: index * ringThickness + 20,
-        outerRadius: (index + 1) * ringThickness + 20,
-        paddingAngle: 1,
-      }
-    })
-  }, [groups])
+  const donutSeries = useMemo(
+    () => ({
+      sources: buildDonutSeries(fundingDonuts.sources),
+      subSources: buildDonutSeries(fundingDonuts.subSources),
+      activities: buildDonutSeries(fundingDonuts.activities),
+    }),
+    [fundingDonuts],
+  )
+
+  const hierarchySummaries = useMemo(() => buildHierarchySummaries(groups), [groups])
 
   const orgSkillHeatmap = useMemo(
     () => buildHeatmap(groups['Performing Organization'], groups.Skill),
@@ -116,11 +107,14 @@ export const useCwbsData = () => {
     groups,
     stats,
     barDataset,
-    fundingDonuts,
-    hierarchySeries,
+    hierarchyTree: hierarchySummaries.fullTree,
+    hierarchyLegend: hierarchySummaries.legend,
+    icicleSegments: hierarchySummaries.icicleSegments,
+    reducedSunburstSeries: hierarchySummaries.reducedSunburstSeries,
     orgSkillHeatmap,
     fundingActivityHeatmap,
     totals,
+    donutSeries,
     isLoading,
     error,
   }

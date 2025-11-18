@@ -1,10 +1,14 @@
 import {
   Alert,
   Box,
+  Card,
+  CardContent,
+  CardHeader,
   Chip,
   CircularProgress,
   Container,
   CssBaseline,
+  Grid,
   Stack,
   Typography,
 } from '@mui/material'
@@ -13,7 +17,7 @@ import { useCwbsData } from './hooks/useCwbsData'
 import { KpiSummaryCards } from './components/KpiSummaryCards'
 import { LevelBarChart } from './components/LevelBarChart'
 import { FundingDonutCharts } from './components/FundingDonutCharts'
-import { HierarchySunburst } from './components/HierarchySunburst'
+import { HierarchyTreemapCard } from './components/HierarchyTreemapCard'
 import { HeatmapCard } from './components/HeatmapCard'
 import { DrilldownTree } from './components/DrilldownTree'
 import { LEVEL_ORDER } from './types/cwbs'
@@ -22,12 +26,14 @@ function App() {
   const {
     stats,
     barDataset,
-    fundingDonuts,
-    hierarchySeries,
+    hierarchyTree,
+    hierarchyLegend,
+    icicleSegments,
     orgSkillHeatmap,
     fundingActivityHeatmap,
     groups,
     totals,
+    donutSeries,
     isLoading,
     error,
   } = useCwbsData()
@@ -73,10 +79,10 @@ function App() {
                 Load the CSV reference data once and explore KPIs, distributions, and drilldowns.
               </Typography>
             </Box>
-            <Stack direction="row" spacing={1} flexWrap="wrap">
-              <Chip
-                color="primary"
-                label={`PSID definitions: ${totals.psidCount}`}
+          <Stack direction="row" spacing={1} flexWrap="wrap">
+            <Chip
+              color="primary"
+              label={`PSID definitions: ${totals.psidCount}`}
               />
               <Chip
                 color="secondary"
@@ -91,47 +97,69 @@ function App() {
 
           {error ? <Alert severity="warning">{error}</Alert> : null}
 
-          <KpiSummaryCards stats={stats} />
-          <LevelBarChart dataset={barDataset} />
-          <FundingDonutCharts
-            sources={fundingDonuts.sources}
-            subSources={fundingDonuts.subSources}
-            activities={fundingDonuts.activities}
-          />
-          <HierarchySunburst series={hierarchySeries} />
-          <Stack
-            direction={{ xs: 'column', lg: 'row' }}
-            spacing={2}
-            alignItems="stretch"
-          >
-            <HeatmapCard
-              title="Org vs Skill Heatmap"
-              subtitle="Heat intensity is derived from deterministic code relationships to highlight coverage."
-              rows={orgSkillHeatmap.rows.map((row) => ({
-                id: row.code,
-                label: row.codeName ?? row.code,
-              }))}
-              columns={orgSkillHeatmap.columns.map((col) => ({
-                id: col.code,
-                label: col.codeName ?? col.code,
-              }))}
-              cells={orgSkillHeatmap.cells}
-            />
-            <HeatmapCard
-              title="Funding vs Activity Heatmap"
-              subtitle="Funding sources and activities share the same scoring logic for quick comparison."
-              rows={fundingActivityHeatmap.rows.map((row) => ({
-                id: row.code,
-                label: row.codeName ?? row.code,
-              }))}
-              columns={fundingActivityHeatmap.columns.map((col) => ({
-                id: col.code,
-                label: col.codeName ?? col.code,
-              }))}
-              cells={fundingActivityHeatmap.cells}
-            />
-          </Stack>
-          <DrilldownTree groups={groups} />
+          <Grid container spacing={3}>
+            <Grid size={{ xs: 12 }}>
+              <Card>
+                <CardHeader
+                  title="CWBS KPI Summary"
+                  subheader="Counts per level, including formatting metadata."
+                />
+                <CardContent>
+                  <KpiSummaryCards stats={stats} />
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <LevelBarChart dataset={barDataset} />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <FundingDonutCharts
+                sources={donutSeries.sources}
+                subSources={donutSeries.subSources}
+                activities={donutSeries.activities}
+              />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <HierarchyTreemapCard
+                treeData={hierarchyTree}
+                legend={hierarchyLegend}
+                icicleSegments={icicleSegments}
+              />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <HeatmapCard
+                title="Org vs Skill Heatmap"
+                subtitle="Heat intensity uses deterministic pair scoring for compact insight."
+                rows={orgSkillHeatmap.rows.map((row) => ({
+                  id: row.code,
+                  label: row.codeName ?? row.code,
+                }))}
+                columns={orgSkillHeatmap.columns.map((col) => ({
+                  id: col.code,
+                  label: col.codeName ?? col.code,
+                }))}
+                cells={orgSkillHeatmap.cells}
+              />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <HeatmapCard
+                title="Funding vs Activity Heatmap"
+                subtitle="Funding sources and activities share the same scoring logic for quick comparison."
+                rows={fundingActivityHeatmap.rows.map((row) => ({
+                  id: row.code,
+                  label: row.codeName ?? row.code,
+                }))}
+                columns={fundingActivityHeatmap.columns.map((col) => ({
+                  id: col.code,
+                  label: col.codeName ?? col.code,
+                }))}
+                cells={fundingActivityHeatmap.cells}
+              />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <DrilldownTree groups={groups} />
+            </Grid>
+          </Grid>
         </Stack>
       </Container>
     </>
