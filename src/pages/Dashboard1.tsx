@@ -122,8 +122,16 @@ const Dashboard1 = () => {
       >
         <CardContent sx={{ p: 0 }}>
           <TableContainer>
-            <Table stickyHeader size="small">
-                <TableHead>
+              <Table stickyHeader size="small">
+                <TableHead
+                  sx={{
+                    '& .MuiTableCell-root': {
+                      py: 1.5,
+                      fontWeight: 600,
+                      fontSize: 14,
+                    },
+                  }}
+                >
                   <TableRow>
                     <TableCell>TO ID</TableCell>
                     <TableCell>Title</TableCell>
