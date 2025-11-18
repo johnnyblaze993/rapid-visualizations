@@ -1,0 +1,56 @@
+Level,CodeFormat,Characters,Format,Description,Code,CodeName
+1,aa,2,Numeric,Center,01,Agency
+1,aa,2,Numeric,Center,10,Headquarters
+1,aa,2,Numeric,Center,21,Ames Research Center
+1,aa,2,Numeric,Center,22,Glenn Research Center
+1,aa,2,Numeric,Center,24,Armstrong Flight Research Center
+1,aa,2,Numeric,Center,51,Goddard Space Flight Center
+1,aa,2,Numeric,Center,55,NASA Management Office
+1,aa,2,Numeric,Center,62,Marshall Space Flight Center
+1,aa,2,Numeric,Center,64,Stennis Space Center
+1,aa,2,Numeric,Center,72,Johnson Space Center
+1,aa,2,Numeric,Center,76,Kennedy Space Center
+2,bbbb,4,Alpha/Numeric,Performing Organization,ASXX,Office of Center Operations
+2,bbbb,4,Alpha/Numeric,Performing Organization,CSXX,Office of Strategic Analysis & Communications
+2,bbbb,4,Alpha/Numeric,Performing Organization,EAXX,Stennis Engineering Directorate
+2,bbbb,4,Alpha/Numeric,Performing Organization,EDXX,Engineering Directorate
+2,bbbb,4,Alpha/Numeric,Performing Organization,EEXX,Office of the Chief Engineer
+2,bbbb,4,Alpha/Numeric,Performing Organization,EMXX,Materials and Processes Laboratory
+2,bbbb,4,Alpha/Numeric,Performing Organization,ERXX,Propulsion Systems Department
+2,bbbb,4,Alpha/Numeric,Performing Organization,ESXX,Space Systems Department
+2,bbbb,4,Alpha/Numeric,Performing Organization,ETXX,Test Laboratory
+2,bbbb,4,Alpha/Numeric,Performing Organization,EVXX,Spacecraft and Vehicle Systems Department
+2,bbbb,4,Alpha/Numeric,Performing Organization,HPXX,Human Exploration Development & Operations Office
+2,bbbb,4,Alpha/Numeric,Performing Organization,HSXX,Office of Human Capital
+2,bbbb,4,Alpha/Numeric,Performing Organization,LPXX,Human Landing System Program Office
+2,bbbb,4,Alpha/Numeric,Performing Organization,QDXX,Safety & Mission Assurance Office
+2,bbbb,4,Alpha/Numeric,Performing Organization,SFXX,Michoud Assembly Facility
+2,bbbb,4,Alpha/Numeric,Performing Organization,STXX,Science & Technology Office
+2,bbbb,4,Alpha/Numeric,Performing Organization,XPXX,Space Launch System Program Office
+3,cc,2,Numeric,Skill,01,"Aero-Science Design, Development, and Test"
+3,cc,2,Numeric,Skill,02,"Avionics & Electrical Systems Design, Analysis and Test"
+3,cc,2,Numeric,Skill,03,"Flight Software and Ground Test Design, Analysis and Test"
+3,cc,2,Numeric,Skill,04,"Materials Research, Analysis, Testing, Process, and Hardware Development"
+3,cc,2,Numeric,Skill,05,"Operability Design, Analysis, and Test"
+3,cc,2,Numeric,Skill,06,"Optics Design, Analysis, and Test"
+3,cc,2,Numeric,Skill,07,"Propulsion Systems Design, Analysis, and Test"
+3,cc,2,Numeric,Skill,08,"Scientific Disciplines Design, Analysis, and Test"
+3,cc,2,Numeric,Skill,09,Structural and Mechanical Design and Analysis
+3,cc,2,Numeric,Skill,10,Systems Engineering and Management
+3,cc,2,Numeric,Skill,11,Test Design and Operations
+3,cc,2,Numeric,Skill,12,"Thermal and Fluids Design, Analysis and Test"
+3,cc,2,Numeric,Skill,13,Delivery Order
+4,dd,2,Numeric,Task ID,01,
+4,dd,2,Numeric,Task ID,02,
+4,dd,2,Numeric,Task ID,03,
+5,eeee,4,Alpha/Numeric,Funding Source,SBOO,SLS Booster
+5,eeee,4,Alpha/Numeric,Funding Source,ECLS,Environmental Control Life Support
+6,ffff,4,Alpha/Numeric,Funding Sub-Source,RSSS,Range Safety
+6,ffff,4,Alpha/Numeric,Funding Sub-Source,IDLL,SEI Level I
+6,ffff,4,Alpha/Numeric,Funding Sub-Source,0000,null
+6,ffff,4,Alpha/Numeric,Funding Sub-Source,XXXX,null
+7,ggg,3,Numeric,Activity,001,
+7,ggg,3,Numeric,Activity,002,
+7,ggg,3,Numeric,Activity,003,
+7,ggg,3,Numeric,Activity,000,null
+7,ggg,3,Numeric,Activity,XXX,null
