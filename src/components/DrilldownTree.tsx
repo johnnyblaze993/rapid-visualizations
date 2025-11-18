@@ -95,10 +95,9 @@ export const DrilldownTree = ({ groups }: Props) => {
                           onClick={() => handleSelect(level as LevelDescription, row)}
                           selected={selection[level as LevelDescription]?.code === row.code}
                         >
-                          <ListItemText
-                            primary={`${row.code} ${row.codeName ?? ''}`.trim()}
-                            secondary={`${row.codeFormat.toUpperCase()} • ${row.characters} chars`}
-                          />
+                      <ListItemText
+                        primary={`${row.code} ${row.codeName ?? ''}`.trim()}
+                      />
                         </ListItemButton>
                       ))}
                     </List>

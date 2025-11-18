@@ -17,7 +17,7 @@ export const LevelBarChart = ({ dataset, title = 'CWBS Level Coverage' }: Props)
   >
     <CardHeader title={title} subheader="Counts per level with formatting context." />
     <CardContent sx={{ flexGrow: 1, p: 3, display: 'flex' }}>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, width: '100%' }}>
         <BarChart
           height={320}
           dataset={dataset}

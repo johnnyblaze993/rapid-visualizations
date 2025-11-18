@@ -48,9 +48,6 @@ export const KpiSummaryCards = ({ stats }: Props) => (
         <Typography variant="h4" component="p" sx={{ fontWeight: 600, lineHeight: 1 }}>
           {stat.count}
         </Typography>
-        <Typography variant="caption" color="text.secondary">
-          {stat.format} • {stat.codeFormat.toUpperCase()} • {stat.characters} chars
-        </Typography>
       </Paper>
     ))}
   </Box>

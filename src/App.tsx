@@ -75,10 +75,10 @@ function App() {
                 Mock up examples
               </Typography>
             </Box>
-          <Stack direction="row" spacing={1} flexWrap="wrap">
-            <Chip
-              color="primary"
-              label={`PSID definitions: ${totals.psidCount}`}
+            <Stack direction="row" spacing={1} flexWrap="wrap">
+              <Chip
+                color="primary"
+                label={`PSID definitions: ${totals.psidCount}`}
               />
               <Chip
                 color="secondary"
@@ -95,20 +95,22 @@ function App() {
 
           <Grid container spacing={3} alignItems="stretch">
             <Grid size={{ xs: 12 }}>
-              <Card>
+              <Card
+                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+              >
                 <CardHeader
                   title="CWBS KPI Summary"
                   subheader="Counts per level, including formatting metadata."
                 />
-                <CardContent>
+                <CardContent sx={{ flexGrow: 1 }}>
                   <KpiSummaryCards stats={stats} />
                 </CardContent>
               </Card>
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex' }}>
+            <Grid size={{ xs: 12, sm: 4, md: 4 }}>
               <LevelBarChart dataset={barDataset} />
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex' }}>
+            <Grid size={{ xs: 12, sm: 8, md: 8 }}>
               <FundingDonutCharts
                 sources={donutSeries.sources}
                 subSources={donutSeries.subSources}
@@ -122,7 +124,7 @@ function App() {
                 icicleSegments={icicleSegments}
               />
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, sm: 6, md: 6 }}>
               <HeatmapCard
                 title="Org vs Skill Heatmap"
                 subtitle="Heat intensity uses deterministic pair scoring for compact insight."
@@ -137,7 +139,7 @@ function App() {
                 cells={orgSkillHeatmap.cells}
               />
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, sm: 6, md: 6 }}>
               <HeatmapCard
                 title="Funding vs Activity Heatmap"
                 subtitle="Funding sources and activities share the same scoring logic for quick comparison."
