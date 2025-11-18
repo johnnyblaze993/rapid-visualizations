@@ -1,0 +1,51 @@
+TO Title,Revision Number,Task Initiator (TI),Performing Organization,Skill,CWBS,Period of Performance (to/from date),Urgency,Justification for Technical Direction,Description/Objectives,Summary of Changes,TO Review Comments,Status,Last Action,Pending Action By,Due Date
+Hardware Integration Task 4,5,Manager5,ER14,4,62.ER14.04.12.ABCD.536,11/4/2026-4/28/2027,Urgent,,,,,Awaiting CO Approval,11/18/2025,Manager5,4/20/2026
+Safety Review Task 7,1,Manager6,EV73,12,62.EV73.12.12.ABCD.750,7/19/2027-3/18/2028,Urgent,,,,,Awaiting CO Approval,11/16/2025,Manager6,9/12/2026
+Software Update Task 3,3,Manager1,ER21,10,62.ER21.10.12.ABCD.264,5/10/2026-6/25/2027,Urgent,,,,,In Review,11/2/2025,Manager1,4/16/2026
+Hardware Integration Task 4,4,Manager5,EV19,7,62.EV19.07.12.ABCD.879,2/18/2026-1/21/2027,Urgent,,,,,Pending Manager Approval,11/18/2025,Manager,12/14/2026
+Prototype Dev Task 6,2,Manager5,ER14,14,62.ER14.14.03.ABCD.612,9/20/2027-6/8/2028,High,,,,,Returned for Revision,11/4/2025,Manager5,12/2/2026
+Safety Review Task 7,1,Manager7,ER14,4,62.ER14.04.04.ABCD.866,5/5/2027-10/29/2027,High,,,,,Pending CO Approval,11/10/2025,CO,10/26/2026
+Safety Review Task 7,3,Manager7,ER14,14,62.ER14.14.05.ABCD.406,2/8/2027-11/30/2027,High,,,,,Returned for Clarification,11/27/2025,Manager7,10/8/2026
+Cybersecurity Task 12,4,Manager2,ER55,14,62.ER55.14.08.ABCD.469,10/23/2027-1/22/2028,High,,,,,Awaiting CO Approval,11/5/2025,Manager2,3/8/2026
+User Training Task 11,1,Manager8,EV90,10,62.EV90.10.02.ABCD.921,3/17/2025-2/1/2026,Urgent,,,,,Awaiting Inputs,11/19/2025,Manager8,9/24/2026
+Cybersecurity Task 12,3,Manager1,ER14,10,62.ER14.10.09.ABCD.543,1/20/2027-7/6/2027,High,,,,,Returned for Revision,11/19/2025,Manager1,10/22/2026
+Prototype Dev Task 6,1,Manager8,ER07,14,62.ER07.14.03.ABCD.792,7/16/2027-1/17/2028,Normal,,,,,Returned for Revision,11/24/2025,Manager8,2/4/2026
+Testing Task 5,1,Manager3,EV73,8,62.EV73.08.05.ABCD.417,8/11/2027-2/22/2028,Urgent,,,,,Awaiting CO Approval,11/8/2025,Manager3,11/24/2026
+Software Update Task 3,5,Manager7,ER78,6,62.ER78.06.05.ABCD.753,5/4/2025-2/12/2026,Normal,,,,,Pending Manager Approval,11/27/2025,Manager,4/28/2026
+Validation Task 9,2,Manager3,EV19,5,62.EV19.05.12.ABCD.580,1/29/2026-11/21/2026,High,,,,,Returned for Clarification,11/17/2025,Manager3,8/11/2026
+Testing Task 5,5,Manager6,ER14,11,62.ER14.11.08.ABCD.452,2/9/2025-9/21/2025,Normal,,,,,Awaiting CO Approval,11/13/2025,Manager6,12/17/2026
+Testing Task 5,1,Manager8,ER55,4,62.ER55.04.01.ABCD.389,6/16/2025-3/18/2026,Urgent,,,,,Awaiting Inputs,11/2/2025,Manager8,2/4/2026
+Hardware Integration Task 4,1,Manager3,ER78,11,62.ER78.11.07.ABCD.506,12/27/2026-7/6/2027,Urgent,,,,,Awaiting CO Approval,11/14/2025,Manager3,7/4/2026
+Testing Task 5,3,Manager1,EV60,12,62.EV60.12.12.ABCD.150,1/9/2025-5/14/2025,High,,,,,In Review,11/5/2025,Manager1,4/18/2026
+Systems Engineering Task 1,2,Manager1,ER14,12,62.ER14.12.12.ABCD.645,3/19/2026-1/7/2027,Normal,,,,,Awaiting Inputs,11/7/2025,Manager1,3/25/2026
+Testing Task 5,5,Manager5,ER07,3,62.ER07.03.07.ABCD.723,5/13/2025-8/14/2025,Normal,,,,,In Review,11/26/2025,Manager5,10/10/2026
+Software Update Task 3,1,Manager3,EV90,11,62.EV90.11.03.ABCD.631,11/20/2027-2/29/2028,High,,,,,Pending CO Approval,11/13/2025,CO,11/17/2026
+Analysis Task 2,1,Manager8,EV19,4,62.EV19.04.10.ABCD.968,11/12/2025-12/26/2026,Normal,,,,,In Review,11/21/2025,Manager8,1/27/2026
+User Training Task 11,1,Manager7,ER07,10,62.ER07.10.11.ABCD.437,1/7/2025-5/11/2025,High,,,,,Awaiting CO Approval,11/1/2025,Manager7,9/8/2026
+Software Update Task 3,2,Manager2,ER14,11,62.ER14.11.02.ABCD.893,10/5/2026-7/6/2027,High,,,,,Returned for Revision,11/23/2025,Manager2,12/11/2026
+Prototype Dev Task 6,4,Manager6,EV02,7,62.EV02.07.06.ABCD.408,11/13/2026-5/22/2027,Normal,,,,,In Review,11/4/2025,Manager6,3/5/2026
+Software Update Task 3,1,Manager4,ER55,5,62.ER55.05.01.ABCD.954,9/20/2027-10/27/2028,Normal,,,,,Pending Manager Approval,11/9/2025,Manager,9/22/2026
+Design Update Task 8,1,Manager6,ER55,5,62.ER55.05.04.ABCD.627,11/10/2026-1/24/2028,High,,,,,Pending SME Review,11/25/2025,Manager,5/4/2026
+Safety Review Task 7,3,Manager2,ER07,8,62.ER07.08.07.ABCD.500,7/21/2027-1/26/2028,Urgent,,,,,Awaiting CO Approval,11/14/2025,Manager2,4/25/2026
+Deployment Task 10,5,Manager4,EV19,12,62.EV19.12.11.ABCD.575,1/13/2026-10/21/2026,Urgent,,,,,Awaiting Inputs,11/20/2025,Manager4,5/24/2026
+Testing Task 5,2,Manager2,EV10,12,62.EV10.12.09.ABCD.700,10/25/2027-12/12/2028,High,,,,,In Review,11/11/2025,Manager2,4/1/2026
+Analysis Task 2,2,Manager4,EV10,10,62.EV10.10.06.ABCD.368,6/7/2025-9/19/2025,Urgent,,,,,Awaiting Inputs,11/16/2025,Manager4,11/9/2026
+User Training Task 11,4,Manager6,EV10,5,62.EV10.05.03.ABCD.503,10/26/2027-10/14/2028,High,,,,,Returned for Revision,11/6/2025,Manager6,6/15/2026
+Design Update Task 8,2,Manager4,ER14,14,62.ER14.14.06.ABCD.925,12/16/2025-9/28/2026,Normal,,,,,Pending SME Review,11/28/2025,Manager,1/5/2026
+Hardware Integration Task 4,4,Manager2,ER33,14,62.ER33.14.03.ABCD.250,1/29/2025-5/22/2025,High,,,,,Pending Manager Approval,11/14/2025,Manager,10/16/2026
+Testing Task 5,5,Manager2,ER14,4,62.ER14.04.04.ABCD.203,12/28/2025-6/29/2026,High,,,,,Pending Manager Approval,11/11/2025,Manager,11/13/2026
+Cybersecurity Task 12,1,Manager3,ER33,7,62.ER33.07.02.ABCD.267,12/24/2027-11/17/2028,High,,,,,Pending Manager Approval,11/13/2025,Manager,3/20/2026
+Testing Task 5,5,Manager6,ER55,10,62.ER55.10.09.ABCD.709,4/29/2025-11/18/2025,Normal,,,,,Returned for Revision,11/22/2025,Manager6,3/10/2026
+Deployment Task 10,1,Manager1,EV90,5,62.EV90.05.06.ABCD.988,7/11/2027-7/2/2028,Normal,,,,,Pending CO Approval,11/14/2025,CO,4/19/2026
+Hardware Integration Task 4,4,Manager4,ER07,5,62.ER07.05.12.ABCD.631,9/16/2026-12/22/2026,Urgent,,,,,Pending CO Approval,11/5/2025,CO,4/26/2026
+Cybersecurity Task 12,5,Manager5,EV19,12,62.EV19.12.10.ABCD.634,9/22/2025-8/13/2026,High,,,,,Returned for Revision,11/22/2025,Manager5,4/4/2026
+Analysis Task 2,3,Manager7,EV02,5,62.EV02.05.09.ABCD.538,10/8/2026-7/13/2027,Normal,,,,,Returned for Clarification,11/16/2025,Manager7,5/3/2026
+Analysis Task 2,5,Manager6,ER14,4,62.ER14.04.04.ABCD.303,3/23/2026-8/13/2026,Urgent,,,,,Awaiting Inputs,11/25/2025,Manager6,11/15/2026
+Design Update Task 8,5,Manager5,EV02,3,62.EV02.03.10.ABCD.962,5/27/2025-9/29/2025,Normal,,,,,In Review,11/16/2025,Manager5,5/19/2026
+Safety Review Task 7,5,Manager1,ER14,14,62.ER14.14.10.ABCD.154,11/7/2026-1/27/2028,High,,,,,Pending CO Approval,11/24/2025,CO,2/4/2026
+Cybersecurity Task 12,4,Manager8,ER78,5,62.ER78.05.06.ABCD.597,3/19/2025-2/9/2026,Urgent,,,,,Pending SME Review,11/22/2025,Manager,4/28/2026
+Testing Task 5,2,Manager8,ER78,8,62.ER78.08.05.ABCD.662,12/16/2025-9/28/2026,High,,,,,Pending SME Review,11/25/2025,Manager,3/20/2026
+Testing Task 5,2,Manager4,EV60,8,62.EV60.08.09.ABCD.315,9/29/2027-4/9/2028,Urgent,,,,,In Review,11/15/2025,Manager4,5/18/2026
+Hardware Integration Task 4,2,Manager3,EV19,10,62.EV19.10.03.ABCD.801,9/19/2025-1/7/2026,Urgent,,,,,In Review,11/17/2025,Manager3,10/8/2026
+Safety Review Task 7,4,Manager7,EV19,8,62.EV19.08.12.ABCD.487,9/11/2026-3/6/2027,Urgent,,,,,Pending CO Approval,11/12/2025,CO,11/9/2026
+Systems Engineering Task 1,2,Manager5,ER33,10,62.ER33.10.07.ABCD.115,5/31/2025-7/26/2026,Urgent,,,,,Awaiting Inputs,11/12/2025,Manager5,5/24/2026

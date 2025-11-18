@@ -1,175 +1,146 @@
 import {
-  Avatar,
   Box,
   Card,
   CardContent,
   CardHeader,
-  Grid,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ToggleButton,
-  ToggleButtonGroup,
+  Stack,
   Typography,
 } from '@mui/material'
-import { useState } from 'react'
-import { ResponsiveContainer, Treemap, Tooltip } from 'recharts'
-import type { TreemapNode } from 'recharts/types/chart/Treemap'
-import type {
-  ChartLegendEntry,
-  HierarchyNode,
-  IcicleSegment,
-} from '../types/cwbs'
-import { IcicleChart } from './IcicleChart'
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts'
+import type { DotProps } from 'recharts'
+import type { ChartLegendEntry } from '../types/cwbs'
 
-interface HierarchyTreemapCardProps {
-  treeData: HierarchyNode[]
+interface HierarchyTrendCardProps {
   legend: ChartLegendEntry[]
-  icicleSegments: IcicleSegment[]
-  height?: number
 }
 
-const TreemapTooltip = ({ active, payload }: any) => {
-  if (!active || !payload?.length) return null
-  const data = payload[0].payload
+const ColorDot = (props: DotProps & { payload?: any }) => {
+  const { cx, cy, payload } = props
+  if (cx == null || cy == null || !payload) return null
   return (
-    <Box
+    <circle
+      cx={cx}
+      cy={cy}
+      r={6}
+      fill={payload.color}
+      stroke="#fff"
+      strokeWidth={2}
+    />
+  )
+}
+
+export const HierarchyTreemapCard = ({ legend }: HierarchyTrendCardProps) => {
+  const dataset = legend.map((entry, index) => ({
+    index,
+    label: entry.label,
+    value: entry.value,
+    color: entry.color,
+  }))
+
+  return (
+    <Card
       sx={{
-        bgcolor: 'background.paper',
-        borderRadius: 1,
-        p: 1,
-        boxShadow: 3,
+        height: '100%',
+        minHeight: 420,
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <Typography variant="subtitle2">{data.name}</Typography>
-      <Typography variant="body2" color="text.secondary">
-        {data.level} • {data.value.toLocaleString()}
-      </Typography>
-    </Box>
-  )
-}
-
-const renderTreemapNode = (props: TreemapNode) => {
-  const { x, y, width, height } = props
-  const payload = (props as TreemapNode & { payload?: any }).payload ?? {}
-  if (width <= 0 || height <= 0) return <g />
-  const minForLabel = width > 80 && height > 36
-  return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        style={{ fill: payload.color, stroke: '#fff', strokeWidth: 1 }}
-        rx={4}
-        ry={4}
-      />
-      {minForLabel ? (
-        <text
-          x={x + 8}
-          y={y + 20}
-          fill="#fff"
-          fontSize={12}
-          fontWeight={600}
-          pointerEvents="none"
-        >
-          {payload.name}
-        </text>
-      ) : null}
-    </g>
-  )
-}
-
-export const HierarchyTreemapCard = ({
-  treeData,
-  legend,
-  icicleSegments,
-  height = 420,
-}: HierarchyTreemapCardProps) => {
-  const [mode, setMode] = useState<'treemap' | 'icicle'>('treemap')
-  const handleModeChange = (_: React.MouseEvent<HTMLElement>, value: string | null) => {
-    if (value) setMode(value as 'treemap' | 'icicle')
-  }
-
-  return (
-    <Card>
       <CardHeader
         title="CWBS Hierarchy Overview"
-        subheader="Compact treemap and icicle views for the 7-level CWBS structure."
-        action={
-          <ToggleButtonGroup
-            exclusive
-            size="small"
-            value={mode}
-            onChange={handleModeChange}
-          >
-            <ToggleButton value="treemap">Treemap</ToggleButton>
-            <ToggleButton value="icicle">Icicle</ToggleButton>
-          </ToggleButtonGroup>
-        }
+        subheader="Relative coverage for top centers"
       />
-      <CardContent>
-        <Grid container spacing={2} alignItems="stretch">
-          <Grid size={{ xs: 12, md: 9 }}>
-            <Box sx={{ height }}>
-              {mode === 'treemap' ? (
-                <ResponsiveContainer width="100%" height="100%">
-                  <Treemap
-                    data={treeData}
-                    dataKey="value"
-                    nameKey="name"
-                    content={renderTreemapNode}
-                    animationDuration={600}
-                    fill="#1976d2"
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          spacing={3}
+          alignItems="stretch"
+          sx={{ height: '100%' }}
+        >
+          <Box sx={{ flex: 1, minHeight: 300 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={dataset} margin={{ top: 16, right: 16, left: 16, bottom: 16 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="label"
+                  interval={0}
+                  height={60}
+                  tick={{ fontSize: 12 }}
+                  tickMargin={12}
+                  angle={-35}
+                  textAnchor="end"
+                />
+                <YAxis width={70} tick={{ fontSize: 12 }} />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#90caf9"
+                  strokeWidth={3}
+                  dot={<ColorDot />}
+                  activeDot={{ r: 8 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </Box>
+          <Box
+            sx={{
+              flex: { xs: '1 1 auto', md: '0 0 280px' },
+              border: 1,
+              borderColor: 'divider',
+              borderRadius: 2,
+              maxHeight: 320,
+              overflowY: 'auto',
+              p: 2,
+            }}
+          >
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+              Top Centers
+            </Typography>
+            <Stack spacing={1}>
+              {legend.map((entry) => (
+                <Box
+                  key={entry.label}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    fontSize: 14,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 12,
+                      height: 12,
+                      borderRadius: '50%',
+                      bgcolor: entry.color,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Typography
+                    variant="body2"
+                    noWrap
+                    title={entry.label}
+                    sx={{ flexGrow: 1 }}
                   >
-                    <Tooltip content={<TreemapTooltip />} />
-                  </Treemap>
-                </ResponsiveContainer>
-              ) : (
-                <IcicleChart segments={icicleSegments} height={height} />
-              )}
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12, md: 3 }}>
-            <Box
-              sx={{
-                height,
-                overflowY: 'auto',
-                border: 1,
-                borderColor: 'divider',
-                borderRadius: 2,
-                p: 1,
-              }}
-            >
-              <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                Top Centers
-              </Typography>
-              <List dense disablePadding>
-                {legend.map((entry) => (
-                  <ListItem key={entry.label}>
-                    <ListItemAvatar>
-                      <Avatar
-                        sx={{
-                          bgcolor: entry.color,
-                          width: 28,
-                          height: 28,
-                        }}
-                      >
-                        &nbsp;
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={entry.label}
-                      secondary={`${entry.value.toLocaleString()} defs`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          </Grid>
-        </Grid>
+                    {entry.label}
+                  </Typography>
+                  <Typography variant="body2" fontWeight={600}>
+                    {entry.value.toLocaleString()}
+                  </Typography>
+                </Box>
+              ))}
+            </Stack>
+          </Box>
+        </Stack>
       </CardContent>
     </Card>
   )
