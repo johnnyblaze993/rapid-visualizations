@@ -4,6 +4,7 @@ import {
   CardContent,
   Chip,
   IconButton,
+  MenuItem,
   Skeleton,
   Table,
   TableBody,
@@ -11,6 +12,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
@@ -72,6 +74,13 @@ const Dashboard1 = () => {
   const [rows, setRows] = useState<TaskOrder[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [page, setPage] = useState(0)
+  const [filters, setFilters] = useState({
+    title: '',
+    requestingOrg: '',
+    lastActionOrder: '',
+    pendingActionBy: '',
+    status: '',
+  })
 
   useEffect(() => {
     const load = async () => {
@@ -89,14 +98,67 @@ const Dashboard1 = () => {
     load()
   }, [])
 
-  const pageCount = Math.ceil(rows.length / rowsPerPage)
+  const filteredRows = useMemo(() => {
+    const titleFilter = filters.title.trim()
+    const orgFilter = filters.requestingOrg.trim()
+    const pendingFilter = filters.pendingActionBy.trim()
+    const statusFilter = filters.status.trim()
+    let result = rows.filter((row) => {
+      const matchesTitle =
+        !titleFilter || row.title === titleFilter
+      const matchesOrg =
+        !orgFilter || row.requestingOrg === orgFilter
+      const matchesPending =
+        !pendingFilter || row.pendingActionBy === pendingFilter
+      const matchesStatus =
+        !statusFilter || row.status === statusFilter
+      return (
+        matchesTitle &&
+        matchesOrg &&
+        matchesPending &&
+        matchesStatus
+      )
+    })
+    if (filters.lastActionOrder) {
+      const direction = filters.lastActionOrder === 'latest' ? -1 : 1
+      result = [...result].sort((a, b) => {
+        const dateA = new Date(a.lastAction).getTime()
+        const dateB = new Date(b.lastAction).getTime()
+        if (Number.isNaN(dateA) || Number.isNaN(dateB)) return 0
+        return dateA > dateB ? direction : -direction
+      })
+    }
+    return result
+  }, [rows, filters])
+
+  const pageCount = Math.ceil(filteredRows.length / rowsPerPage) || 1
   const paginatedRows = useMemo(
-    () => rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [rows, page],
+    () =>
+      filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [filteredRows, page],
   )
 
-  const from = page * rowsPerPage + 1
-  const to = Math.min(rows.length, (page + 1) * rowsPerPage)
+  const from = filteredRows.length === 0 ? 0 : page * rowsPerPage + 1
+  const to = Math.min(filteredRows.length, (page + 1) * rowsPerPage)
+
+  const uniqueOptions = useMemo(() => {
+    const toSet = <T,>(selector: (row: TaskOrder) => T) =>
+      Array.from(new Set(rows.map(selector))).filter(Boolean).sort()
+    return {
+      title: toSet((row) => row.title),
+      requestingOrg: toSet((row) => row.requestingOrg),
+      pendingActionBy: toSet((row) => row.pendingActionBy),
+      status: toSet((row) => row.status),
+    }
+  }, [rows])
+
+  const handleFilterChange = (
+    key: keyof typeof filters,
+    value: string,
+  ) => {
+    setFilters((prev) => ({ ...prev, [key]: value }))
+    setPage(0)
+  }
 
   return (
     <Box
@@ -139,6 +201,103 @@ const Dashboard1 = () => {
                     <TableCell>Last Action</TableCell>
                     <TableCell>Pending Action By</TableCell>
                     <TableCell>Status</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Box />
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        select
+                        size="small"
+                        value={filters.title}
+                        onChange={(e) =>
+                          handleFilterChange('title', e.target.value)
+                        }
+                        fullWidth
+                        SelectProps={{ displayEmpty: true }}
+                      >
+                        <MenuItem value="">All</MenuItem>
+                        {uniqueOptions.title.map((value) => (
+                          <MenuItem key={value} value={value}>
+                            {value}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        select
+                        size="small"
+                        value={filters.requestingOrg}
+                        onChange={(e) =>
+                          handleFilterChange('requestingOrg', e.target.value)
+                        }
+                        fullWidth
+                        SelectProps={{ displayEmpty: true }}
+                      >
+                        <MenuItem value="">All</MenuItem>
+                        {uniqueOptions.requestingOrg.map((value) => (
+                          <MenuItem key={value} value={value}>
+                            {value}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        select
+                        size="small"
+                        value={filters.lastActionOrder}
+                        onChange={(e) =>
+                          handleFilterChange('lastActionOrder', e.target.value)
+                        }
+                        fullWidth
+                        SelectProps={{ displayEmpty: true }}
+                      >
+                        <MenuItem value="">Default</MenuItem>
+                        <MenuItem value="latest">Newest First</MenuItem>
+                        <MenuItem value="earliest">Oldest First</MenuItem>
+                      </TextField>
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        select
+                        size="small"
+                        value={filters.pendingActionBy}
+                        onChange={(e) =>
+                          handleFilterChange('pendingActionBy', e.target.value)
+                        }
+                        fullWidth
+                        SelectProps={{ displayEmpty: true }}
+                      >
+                        <MenuItem value="">All</MenuItem>
+                        {uniqueOptions.pendingActionBy.map((value) => (
+                          <MenuItem key={value} value={value}>
+                            {value}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        select
+                        size="small"
+                        value={filters.status}
+                        onChange={(e) =>
+                          handleFilterChange('status', e.target.value)
+                        }
+                        fullWidth
+                        SelectProps={{ displayEmpty: true }}
+                      >
+                        <MenuItem value="">All</MenuItem>
+                        {uniqueOptions.status.map((value) => (
+                          <MenuItem key={value} value={value}>
+                            {value}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
